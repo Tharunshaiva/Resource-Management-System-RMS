@@ -1,0 +1,118 @@
+/* BODY */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(120deg, #e0f7fa, #ffffff);
+    color: #333;
+    margin: 0;
+    padding: 30px;
+}
+
+/* MAIN HEADER */
+h1 {
+    text-align: center;
+    color: #00796b;
+    margin: 20px 0;
+    font-size: 2.5rem;
+    letter-spacing: 1px;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+}
+
+/* CARD CONTAINER */
+.card-container {
+    display: flex;
+    gap: 25px;
+    margin-top: 30px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+/* INDIVIDUAL CARD */
+.card {
+    background: #ffffffcc;
+    padding: 25px 20px;
+    width: 250px;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+
+/* CARD HEADINGS */
+.card h2 {
+    margin-bottom: 15px;
+    color: #004d40;
+    font-size: 1.3em;
+}
+
+/* VALUE STYLING */
+.value {
+    font-size: 50px;
+    font-weight: bold;
+    color: #00796b;
+    margin-bottom: 10px;
+}
+
+/* BUTTON STYLING */
+button {
+    display: block;
+    margin: 35px auto 0 auto;
+    padding: 10px 20px;
+    background: #00796b;
+    border: none;
+    color: #fff;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+button:hover {
+    background: #004d40;
+    transform: scale(1.05);
+}
+
+/* STATUS MESSAGES */
+.loading {
+    color: #007bff;
+    font-weight: bold;
+    font-size: 1.1em;
+    text-align: center;
+    margin-top: 15px;
+}
+
+.error {
+    color: #ff4d4d;
+    font-weight: bold;
+    font-size: 1.1em;
+    text-align: center;
+    margin-top: 15px;
+}
+
+/* SUCCESS STATUS */
+#status {
+    font-weight: bold;
+    font-size: 1.1em;
+    text-align: center;
+    margin-top: 15px;
+    color: #28a745;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    .card-container {
+        flex-direction: column;
+        align-items: center;
+    }
+    .card {
+        width: 90%;
+    }
+    button {
+        width: calc(90% - 40px);
+    }
+}

@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Reports Dashboard</title>
+    <link rel="stylesheet" href="/css/reports.css">
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-chart-matrix@1.2.0/dist/chartjs-chart-matrix.min.js"></script>
+
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f6fa;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #004d40;
+        }
+
+        .menu {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+
+        .menu button {
+            padding: 14px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            background: #00695c;
+            color: white;
+            transition: 0.2s;
+        }
+
+        .menu button:hover {
+            background: #004d40;
+        }
+
+        /* Section container: use CSS Grid so charts can flow in rows of 3
+           Keep display:none as the show/hide logic in JS toggles this;
+           grid properties will take effect when the section is shown. */
+        .section {
+            display: none;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            max-width: 1200px;
+            margin: auto;
+            box-sizing: border-box;
+
+            /* layout for charts: 2 items per row */
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            align-items: start;
+        }
+
+        /* Make section headings, select controls and input groups span the full row */
+        .section > h2,
+        .section > label,
+        .section .input-group,
+        .section #projectDropdown,
+        .section #roleProjectDropdown {
+            grid-column: 1 / -1;
+        }
+
+        /* Responsive: keep 2 columns for medium screens, 1 column on narrow screens */
+        @media (max-width: 900px) {
+            .section { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 600px) {
+            .section { grid-template-columns: 1fr; }
+        }
+
+        canvas {
+            max-width: 700px;
+            margin: auto;
+        }
+    </style>
+</head>
+
+<body>
+
+<h1>Reports Dashboard</h1>
+
+<!-- Top Menu Buttons -->
+<div class="menu">
+    <button data-section="employeesSection">Employees</button>
+    <button data-section="projectsSection">Projects</button>
+    <!-- <button data-section="allocationSection">Allocation</button> -->
+    <button data-section="benchSection">Bench</button>
+    <button data-section="skillsSection">Skills</button>
+</div>
+
+<!-- SECTION: EMPLOYEES -->
+<div id="employeesSection" class="section">
+    <h2>Employee Reports</h2>
+
+    <div class="chart-container">
+        <h3>Employees by Designation</h3>
+        <canvas id="employeeChart"></canvas>
+    </div>
+
+    <div class="chart-container">
+        <h3>Gender Distribution</h3>
+        <canvas id="genderChart"></canvas>
+    </div>
+
+    <div class="chart-container">
+        <h3>Experience Distribution</h3>
+        <canvas id="expChart"></canvas>
+    </div>
+
+    <div class="chart-container">
+        <h3>Employee Allocation Status</h3>
+        <canvas id="allocChart"></canvas>
+    </div>
+
+    <div class="chart-container">
+        <h3>Skill Availability</h3>
+        <canvas id="skillChart"></canvas>
+    </div>
+    <div class="chart-container">
+    <h3>Top 3 Designations Over Time</h3>
+    <canvas id="designationTimeChart"></canvas>
+</div>
+
+<div class="chart-container">
+    <h3>Gender by Designation</h3>
+    <canvas id="genderByDesignationChart"></canvas>
+</div>
+
+
+</div>
+
+
+<!-- SECTION: PROJECTS -->
+<div id="projectsSection" class="section">
+    <h2>Project Analytics</h2>
+
+    <!-- Project Selector -->
+    <label><b>Select Project:</b></label>
+    <select id="projectDropdown"></select>
+
+    <div class="chart-container">
+        <h3>Capacity vs Utilization</h3>
+        <canvas id="capUtilChart"></canvas>
+    </div>
+
+    <div class="chart-container">
+        <h3> Active vs Inactive Projects</h3>
+        <canvas id="statusChart"></canvas>
+    </div>
+
+    <div class="chart-container">
+    <h3> Role Distribution inside Selected Project</h3>
+
+    <label><b>Select Project for Role Distribution:</b></label>
+    <select id="roleProjectDropdown"></select>
+
+    <canvas id="roleChart"></canvas>
+</div>
+
+</div>
+
+<style>
+    .chart-container {
+        background: #ffffff;
+        padding: 18px;
+        border-radius: 10px;
+        margin-bottom: 25px;
+        box-shadow: 0 0 8px rgba(0,0,0,0.08);
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+    }
+    /* Make canvases fill their chart container cells */
+    .chart-container canvas { width: 100% !important; max-height: 300px; height: 300px !important; }
+</style>
+
+
+
+<!-- SECTION: BENCH -->
+<div id="benchSection" class="section">
+    <h2>Bench Reports</h2>
+
+    <div class="chart-container">
+        <h3>Bench Employees by Skill</h3>
+        <canvas id="benchSkillEmployeeChart"></canvas>
+    </div>
+
+    <div class="chart-container">
+        <h3>Bench Percentage vs Assigned</h3>
+        <canvas id="benchPercentageChart"></canvas>
+    </div>
+
+    <div class="chart-container">
+        <h3>Bench Count by Skill</h3>
+        <canvas id="benchBySkillChart"></canvas>
+    </div>
+
+    <div class="chart-container">
+        <h3>Project Assignment vs Bench</h3>
+        <canvas id="projectBenchChart"></canvas>
+    </div>
+
+    <div class="chart-container">
+        <h3>Active Project Timelines</h3>
+        <canvas id="projectTimelineChart"></canvas>
+    </div>
+
+    <div class="chart-container">
+        <h3>Bench Experience Distribution</h3>
+        <canvas id="benchExperienceChart"></canvas>
+    </div>
+
+    <div class="chart-container">
+        <h3>Employee Skill Count</h3>
+        <canvas id="employeeSkillCountChart"></canvas>
+    </div>
+
+</div>
+
+<!-- SECTION: SKILLS -->
+<div id="skillsSection" class="section">
+    <h2>Skills Reports</h2>
+
+    <!-- Skill Popularity -->
+    <div class="chart-container">
+        <h3>Skill Popularity</h3>
+        <canvas id="skillsChart"></canvas>
+    </div>
+
+    <!-- Skill Depth vs Coverage -->
+    <div class="chart-container">
+        <h3>Skill Depth vs Coverage</h3>
+        <canvas id="skillDepthCoverageChart"></canvas> <!-- Changed ID -->
+    </div>
+
+    <!-- Employee Skill Count Distribution -->
+    <div class="chart-container">
+        <h3>Employee Skill Count Distribution</h3>
+        <canvas id="employeeSkillCountDistributionChart"></canvas> <!-- Changed ID -->
+    </div>
+</div>
+
+
+
+<script src="/js/reports.js"></script>
+</body>
+</html>

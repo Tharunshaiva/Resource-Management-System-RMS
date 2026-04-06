@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Employee Allocation</title>
+<link rel="stylesheet" href="/css/allocations.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- jQuery -->
+</head>
+<body>
+    <div class="container">
+        <button onclick="window.location.href='index.html'" class="back-button">← Back to Dashboard</button>
+        <nav class="sub-nav">
+            <a href="#" id="navHistory">Allocation History</a>
+            <a href="#" id="navEmployeeAlloc">Employee Allocation by Project</a>
+        </nav>
+        <div id="responseBox"></div>
+    </div>
+    <!-- Projects list with pagination -->
+    <div class="container">
+        <h2>Projects</h2>
+        <div id="projectsList" class="projects-list"></div>
+        <div id="paginationControls" class="pagination-controls">
+            <button id="prevPage" disabled>Prev</button>
+            <span id="pageInfo">Page 1</span>
+            <button id="nextPage" disabled>Next</button>
+        </div>
+    </div>
+
+    <!-- Hidden modals for history and search (opened via nav) -->
+   
+   <center><div id="historyModal" class="modal" style="display:none;">
+        <div class="modal-content modal-large">
+            <button class="modal-close" id="closeHistory">&times;</button>
+            <h3>View Allocation History</h3>
+            <div>
+                <label for="employeeHistorySelect">Employee: </label>
+                <select id="employeeHistorySelect" name="employeeHistorySelect" required>
+                    <option value="">-- Select Employee --</option>
+                </select>
+                <button onclick="viewHistory()">View History</button>
+            </div>
+            <table id="historyTable" style="display:none;">
+                <thead>
+                    <tr>
+                        <th>Allocation ID</th>
+                        <th>Project Name</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                        <th>Allocation %</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+            <div class="modal-button-group">
+                <button class="back-modal-btn" id="backHistory">← Back</button>
+            </div>
+        </div>
+    </div>
+    </center> 
+    
+   
+   <center> <!-- Assign modal (opened from project row or nav) -->
+    <div id="assignModal" class="modal" style="display:none;">
+        <div class="modal-content">
+            <button class="modal-close" id="closeAssign">&times;</button>
+            <h3>Assign Employee</h3>
+            <div>
+                <label for="assignEmployeeSelect">Employee:</label>
+                <select id="assignEmployeeSelect" name="assignEmployeeSelect" required>
+                    <option value="">-- Select Employee --</option>
+                </select>
+            </div>
+            <div>
+                <label for="assignStartDate">Start Date:</label>
+                <input type="date" id="assignStartDate" name="assignStartDate" required>
+            </div>
+            <div>
+                <label for="assignEndDate">End Date:</label>
+                <input type="date" id="assignEndDate" name="assignEndDate" required>
+            </div>
+            <div>
+                <input type="hidden" id="assignProjectId">
+                <button id="assignSubmit">Assign</button>
+                <button class="back-modal-btn" id="backAssign">← Back</button>
+            </div>
+            <div id="assignResponse" style="margin-top:8px"></div>
+        </div>
+    </div></center>
+
+    <!-- Employee allocation (search) modal -->
+   <center><div id="employeeAllocModal" class="modal" style="display:none;">
+        <div class="modal-content modal-large">
+            <button class="modal-close" id="closeEmployeeAlloc">&times;</button>
+            <h3>Employee Allocation by Project</h3>
+            <div>
+                <label for="projectSearchSelect">Project:</label>
+                <select id="projectSearchSelect" name="projectSearchSelect">
+                    <option value="">-- Select Project --</option>
+                </select>
+                <button id="searchBtn">Search</button>
+            </div>
+            <table id="resultTable" style="display:none; margin-top:12px;">
+                <thead>
+                    <tr>
+                        <th>EmployeeID</th>
+                        <th>Full Name</th>
+                        <th>Email</th>
+                        <th>Designation</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+            <div class="modal-button-group">
+                <button class="back-modal-btn" id="backEmployeeAlloc">← Back</button>
+            </div>
+        </div>
+    </div>
+    </center>
+
+    <!-- Persistent Alert Notification -->
+    <div id="alertNotification" style="display:none;"></div>
+
+    <!-- Link to your JS -->
+    <script src="/js/allocations.js"></script>
+</body>
+</html>

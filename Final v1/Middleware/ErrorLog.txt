@@ -1,0 +1,172 @@
+----- Exception Log -----
+Timestamp: 02-12-2025 04:53:53
+Request Path: /api/Employee/GetAllEmployees
+Request Method: POST
+Status code : 500
+Exception Message: Could not find stored procedure 'SP_GetAllmployees'.
+Exception Type: SqlException
+-------------------------
+
+
+----- Exception Log -----
+Timestamp: 02-12-2025 04:55:59
+Request Path: /api/skill/update
+Request Method: POST
+Status code : 500
+Exception Message: Non-exhaustive switch expression failed to match its input.
+Unmatched value was 1.
+Exception Type: SwitchExpressionException
+-------------------------
+
+
+----- Exception Log -----
+Timestamp: 02-12-2025 05:36:53
+Request Path: /api/employee/GetAllEmployees
+Request Method: POST
+Status code : 500
+Exception Message: Could not find stored procedure 'SP_GetAllmployees'.
+Exception Type: SqlException
+-------------------------
+
+
+----- Exception Log -----
+Timestamp: 02-12-2025 05:48:33
+Request Path: /api/employee/AddEmployee
+Request Method: POST
+Status code : 500
+Exception Message: Object cannot be cast from DBNull to other types.
+Exception Type: InvalidCastException
+-------------------------
+
+
+----- Exception Log -----
+Timestamp: 02-12-2025 05:58:16
+Request Path: /api/skill/update
+Request Method: POST
+Status code : 500
+Exception Message: Non-exhaustive switch expression failed to match its input.
+Unmatched value was 1.
+Exception Type: SwitchExpressionException
+-------------------------
+
+
+----- Exception Log -----
+Timestamp: 02-12-2025 10:43:45
+Request Path: /api/projects/create
+Request Method: POST
+Status code : 500
+Exception Message: ProjectName must be unique.
+Exception Type: InvalidOperationException
+-------------------------
+
+
+----- Exception Log -----
+Timestamp: 02-12-2025 10:44:22
+Request Path: /api/projects/create
+Request Method: POST
+Status code : 500
+Exception Message: ProjectName must be unique.
+Exception Type: InvalidOperationException
+-------------------------
+
+
+----- Exception Log -----
+Timestamp: 03-12-2025 04:13:51
+Request Path: /api/Report/employee-history/1
+Request Method: POST
+Status code : 500
+Exception Message: Data is Null. This method or property cannot be called on Null values.
+Exception Type: SqlNullValueException
+-------------------------
+
+
+----- Exception Log -----
+Timestamp: 03-12-2025 04:34:38
+Request Path: /api/Report/employee-history/1
+Request Method: POST
+Status code : 500
+Exception Message: Data is Null. This method or property cannot be called on Null values.
+Exception Type: SqlNullValueException
+-------------------------
+
+
+----- Exception Log -----
+Timestamp: 03-12-2025 04:34:46
+Request Path: /api/Report/employee-history/3
+Request Method: POST
+Status code : 500
+Exception Message: Data is Null. This method or property cannot be called on Null values.
+Exception Type: SqlNullValueException
+-------------------------
+
+
+----- Exception Log -----
+Timestamp: 03-12-2025 04:35:04
+Request Path: /api/Report/employee-history/1
+Request Method: POST
+Status code : 500
+Exception Message: Data is Null. This method or property cannot be called on Null values.
+Exception Type: SqlNullValueException
+-------------------------
+
+
+----- Exception Log -----
+Timestamp: 03-12-2025 04:44:58
+Request Path: /api/Report/employee-history/1
+Request Method: POST
+Status code : 500
+Exception Message: Data is Null. This method or property cannot be called on Null values.
+Exception Type: SqlNullValueException
+-------------------------
+
+
+----- Exception Log -----
+Timestamp: 03-12-2025 04:45:05
+Request Path: /api/Report/employee-history/1
+Request Method: POST
+Status code : 500
+Exception Message: Data is Null. This method or property cannot be called on Null values.
+Exception Type: SqlNullValueException
+-------------------------
+
+
+----- Exception Log -----
+Timestamp: 04-12-2025 04:25:23
+Request Path: /api/projects/search
+Request Method: POST
+Status code : 500
+Exception Message: A task was canceled.
+Exception Type: TaskCanceledException
+-------------------------
+
+
+----- Exception Log -----
+Timestamp: 04-12-2025 05:29:22
+Request Path: /api/Employee/AddEmployee
+Request Method: POST
+Status code : 500
+Exception Message: Object cannot be cast from DBNull to other types.
+Exception Type: InvalidCastException
+-------------------------
+
+
+----- Exception Log -----
+Timestamp: 04-12-2025 06:09:53
+Request Path: /api/Employee/AddEmployee
+Request Method: POST
+Status code : 500
+Exception Message: Something went wrong!
+Exception Type: InvalidOperationException
+-------------------------
+
+
+----- Exception Log -----
+Timestamp: 04-12-2025 13:22:30
+Request Path: /api/Employee/AddEmployee
+Request Method: POST
+Status code : 500
+Exception Message: Object cannot be cast from DBNull to other types.
+Exception Type: InvalidCastException
+-------------------------
+
+

@@ -1,0 +1,125 @@
+/* GENERAL BODY */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(to right, #f8f9fa, #e9ecef);
+    margin: 0;
+    padding: 20px;
+}
+
+/* MAIN HEADER */
+h1 {
+    text-align: center;
+    background: linear-gradient(to right, #4e54c8, #8f94fb);
+    color: #fff;
+    padding: 20px 0;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    font-size: 2em;
+}
+
+/* SECTION STYLING */
+.section {
+    background: linear-gradient(to right, #ffffff, #f1f3f6);
+    padding: 25px;
+    margin-top: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.section:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+}
+
+.section h2 {
+    margin-top: 0;
+    color: #333;
+    border-left: 6px solid #4e54c8;
+    padding-left: 12px;
+}
+
+/* BUTTON STYLING */
+button {
+    background: linear-gradient(to right, #6a11cb, #2575fc);
+    padding: 10px 20px;
+    border: none;
+    color: #fff;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-bottom: 15px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+button:hover {
+    background: linear-gradient(to right, #2575fc, #6a11cb);
+    transform: scale(1.05);
+}
+
+/* TABLE STYLING */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th, td {
+    padding: 12px 15px;
+    border: 1px solid #e0e0e0;
+    text-align: center;
+    transition: background 0.3s ease;
+}
+
+th {
+    background: linear-gradient(to right, #6a11cb, #2575fc);
+    color: #fff;
+    font-weight: bold;
+}
+
+td {
+    background: #ffffff;
+}
+
+tr:nth-child(even) td {
+    background: #f7f7f7;
+}
+
+tr:hover td {
+    background: #dbeafe;
+}
+
+/* LOADING AND ERROR MESSAGES */
+.loading {
+    color: #007bff;
+    font-weight: bold;
+    font-size: 1.1em;
+}
+
+.error {
+    color: #ff4d4d;
+    font-weight: bold;
+    font-size: 1.1em;
+}
+
+/* HEADINGS INSIDE DATA */
+h3 {
+    color: #4e54c8;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    .section {
+        padding: 15px;
+    }
+    button {
+        width: 100%;
+        font-size: 1em;
+    }
+    th, td {
+        padding: 10px;
+    }
+}

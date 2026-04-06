@@ -1,0 +1,504 @@
+/* Body & Typography */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(120deg, #e0f7fa, #ffffff);
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+ 
+h1 {
+    text-align: center;
+    color: #00796b;
+    margin: 20px 0;
+    font-size: 2.5rem;
+    letter-spacing: 1px;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+}
+ 
+h2 {
+    color: #004d40;
+    margin-bottom: 15px;
+    text-align: center;
+}
+ 
+/* Navigation */
+nav {
+    text-align: center;
+    margin-bottom: 20px;
+}
+nav a {
+    margin: 0 15px;
+    padding: 8px 20px;
+    text-decoration: none;
+    color: #00796b;
+    font-weight: 600;
+    border-radius: 8px;
+    transition: background 0.3s, color 0.3s, transform 0.2s;
+    cursor: pointer;
+}
+nav a:hover {
+    background: #004d40;
+    color: #ffffff;
+    transform: scale(1.05);
+}
+ 
+/* Alerts */
+#alerts .alert {
+    max-width: 600px;
+    margin: 10px auto;
+    padding: 10px 15px;
+    border-radius: 8px;
+    font-weight: 500;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    animation: fadeIn 0.5s ease;
+}
+ 
+ 
+ 
+/* Dropdown Styling */
+form select {
+    width: calc(100% - 22px);
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    font-size: 16px;
+    color: #333;
+    transition: all 0.3s ease;
+    appearance: none; /* Removes default arrow for custom styling */
+    outline: none;
+}
+ 
+/* Focus effect */
+form select:focus {
+    border-color: #00796b;
+    box-shadow: 0 0 8px rgba(0,121,107,0.3);
+}
+ 
+/* Optional: Add a custom dropdown arrow */
+form select {
+    background-image: url('data:image/svg+xml;utf8,<svg fill="%2300796b" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 16px;
+}
+ 
+/* Forms */
+form {
+    max-width: 700px;
+    margin: 0 auto 30px auto;
+    padding: 20px;
+    background: #ffffffcc;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+}
+form:hover {
+    transform: translateY(-3px);
+}
+ 
+label {
+    display: block;
+    margin: 10px 0 5px 0;
+    font-weight: 500;
+}
+ 
+input {
+    width: calc(100% - 22px);
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    transition: all 0.3s ease;
+}
+input:focus {
+    border-color: #00796b;
+    box-shadow: 0 0 8px rgba(0,121,107,0.3);
+    outline: none;
+}
+ 
+/* Buttons */
+button.btn {
+    padding: 10px 20px;
+    border-radius: 8px;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+button.primary {
+    background: #00796b;
+    color: #fff;
+}
+button.primary:hover {
+    background: #004d40;
+    transform: scale(1.05);
+}
+button.ok {
+    background: #4caf50;
+    color: #fff;
+}
+button.ok:hover {
+    background: #388e3c;
+    transform: scale(1.05);
+}
+button.warn {
+    background: #ff7043;
+    color: #fff;
+}
+button.warn:hover {
+    background: #e64a19;
+    transform: scale(1.05);
+}
+ 
+/* Table */
+table {
+    width: 95%;
+    margin: 20px auto;
+    border-collapse: collapse;
+    background: #ffffffcc;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    animation: fadeIn 0.6s ease;
+}
+th, td {
+    padding: 12px;
+    text-align: center;
+    border-bottom: 1px solid #e0e0e0;
+    transition: background 0.3s, color 0.3s;
+}
+th {
+    background-color: #00796b;
+    color: #ffffff;
+    font-size: 1rem;
+}
+tbody tr:hover {
+    background-color: #b2dfdb;
+    color: #004d40;
+    cursor: pointer;
+    transform: scale(1.02);
+    transition: all 0.2s ease;
+}
+ 
+/* Animations */
+@keyframes fadeIn {
+    0% { opacity: 0; transform: translateY(10px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+ 
+/* Sortable Table Headers */
+table th.sortable {
+    cursor: pointer;
+    user-select: none;
+    background: linear-gradient(135deg, #00796b 0%, #004d40 100%);
+    color: white;
+    transition: background 0.2s ease;
+}
+ 
+table th.sortable:hover {
+    background: linear-gradient(135deg, #004d40 0%, #002d2a 100%);
+}
+ 
+table th.sortable .sort-icon {
+    margin-left: 5px;
+    font-size: 0.85rem;
+    opacity: 0.7;
+}
+ 
+/* Responsive */
+@media(max-width: 768px){
+    nav a { display: block; margin: 10px auto; }
+    input { width: 100%; }
+    table { width: 100%; font-size: 0.9rem; }
+}
+.back-button {
+    display: block;
+    margin-bottom: 20px;
+    background: #0277bd;
+    padding: 10px 20px;
+    font-size: 0.95rem;
+}
+.back-button:hover {
+    background: #01579b;
+}
+ 
+/* Skills Dropdown Styling */
+.skills-dropdown-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 400px;
+}
+ 
+.skills-dropdown-button {
+    padding: 10px 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background: white;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+    transition: all 0.2s ease;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+}
+ 
+.skills-dropdown-button:hover {
+    border-color: #00796b;
+    box-shadow: 0 2px 4px rgba(0,122,107,0.1);
+}
+ 
+.skills-dropdown-button:focus,
+.skills-dropdown-button.active {
+    border-color: #00796b;
+    box-shadow: 0 0 0 3px rgba(0,122,107,0.1);
+    outline: none;
+}
+ 
+.dropdown-arrow {
+    font-size: 11px;
+    color: #666;
+    transition: transform 0.2s ease;
+    margin-left: 8px;
+}
+ 
+.skills-dropdown-button.active .dropdown-arrow {
+    transform: rotate(180deg);
+}
+ 
+.skills-dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border: 1px solid #00796b;
+    border-top: none;
+    border-radius: 0 0 4px 4px;
+    max-height: 250px;
+    overflow-y: auto;
+    display: none;
+    z-index: 1000;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+ 
+.skills-dropdown-menu.open {
+    display: block;
+}
+ 
+.skills-dropdown-menu label {
+    padding: 10px 12px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    border-bottom: 1px solid #f0f0f0;
+    transition: background-color 0.15s ease;
+    margin: 0;
+    font-size: 14px;
+    font-weight: 500;
+    color: #333;
+}
+ 
+.skills-dropdown-menu label:hover {
+    background-color: #f5f5f5;
+}
+ 
+.skills-dropdown-menu label:last-child {
+    border-bottom: none;
+}
+ 
+.skills-dropdown-menu input[type="checkbox"] {
+    margin-right: 10px;
+    cursor: pointer;
+    accent-color: #00796b;
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+}
+ 
+/* Scrollbar styling */
+.skills-dropdown-menu::-webkit-scrollbar {
+    width: 8px;
+}
+ 
+.skills-dropdown-menu::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+ 
+.skills-dropdown-menu::-webkit-scrollbar-thumb {
+    background: #00796b;
+    border-radius: 4px;
+}
+ 
+.skills-dropdown-menu::-webkit-scrollbar-thumb:hover {
+    background: #004d40;
+}
+ 
+/* Modal Styling */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+}
+ 
+.modal-content {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    max-width: 500px;
+    width: 90%;
+    animation: slideIn 0.3s ease;
+}
+ 
+@keyframes slideIn {
+    from {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+ 
+.modal-header {
+    padding: 20px;
+    border-bottom: 1px solid #e0e0e0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+ 
+.modal-header h2 {
+    margin: 0;
+    color: #00796b;
+    font-size: 1.5rem;
+}
+ 
+.modal-close {
+    background: none;
+    border: none;
+    font-size: 28px;
+    cursor: pointer;
+    color: #666;
+    padding: 0;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.2s ease;
+}
+ 
+.modal-close:hover {
+    color: #00796b;
+}
+ 
+.modal-body {
+    padding: 20px;
+}
+ 
+.modal-body div {
+    margin-bottom: 15px;
+}
+ 
+.modal-body label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 600;
+    color: #333;
+}
+ 
+.modal-body input,
+.modal-body textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-family: inherit;
+    font-size: 14px;
+    transition: border-color 0.2s ease;
+}
+ 
+.modal-body select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-family: inherit;
+    font-size: 14px;
+    background-color: white;
+    cursor: pointer;
+    transition: border-color 0.2s ease;
+}
+ 
+.modal-body input:focus,
+.modal-body textarea:focus,
+.modal-body select:focus {
+    outline: none;
+    border-color: #00796b;
+    box-shadow: 0 0 0 3px rgba(0, 122, 107, 0.1);
+}
+ 
+.modal-footer {
+    padding: 15px 20px;
+    border-top: 1px solid #e0e0e0;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+ 
+.btn.small {
+    padding: 5px 10px;
+    font-size: 12px;
+}
+
+/* Skill tags (add & update displays) */
+#skillsList, #upd_skill_display {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+    margin-top: 8px;
+}
+
+.skill-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #e0f2f1;
+    color: #004d40;
+    padding: 6px 10px;
+    border-radius: 16px;
+    font-size: 0.95rem;
+    border: 1px solid #b2dfdb;
+}
+
+.skill-tag button.remove-skill-btn,
+.skill-tag button.remove-upd-skill-btn {
+    background: none;
+    border: none;
+    color: #004d40;
+    cursor: pointer;
+    padding: 0 6px;
+    font-size: 16px;
+    line-height: 1;
+}
+
+.skill-tag button.remove-skill-btn:hover,
+.skill-tag button.remove-upd-skill-btn:hover {
+    color: #b71c1c;
+}
+ 
+ 
+ 

@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+ 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Management</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <link rel="stylesheet" href="/css/employees.css">
+</head>
+ 
+<body>
+    <button onclick="window.location.href='index.html'" class="back-button">← Back to Dashboard</button>
+    <h1>Employee Management</h1>
+ 
+    <nav>
+        <a onclick="showSection('listSection')">Employee List</a>
+        <a onclick="showSection('addSection')">Add Employee</a>
+    </nav>
+ 
+    <div id="alerts"></div>
+ 
+    <!-- LIST SECTION -->
+    <section id="listSection">
+        <h2>All Employees</h2>
+ 
+        <div style="margin-bottom: 20px; display: flex; gap: 15px; align-items: center;">
+            <input type="text" id="searchBox" placeholder="Search by employee name..." style="padding: 8px; width: 300px; border: 1px solid #ccc; border-radius: 4px;">
+            <select id="statusFilter" style="padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
+                <option value="">All Employees</option>
+                <option value="Active">Active</option>
+                <option value="Inactive">Inactive</option>
+            </select>
+        </div>
+ 
+        <!-- Column Filters -->
+        <div style="margin-bottom: 10px; display: flex; gap: 15px; align-items: center;margin: 50px;">
+            <select id="filter_gender" style="padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
+                <option value="">All Genders</option>
+                <option value="M">Male (M)</option>
+                <option value="F">Female (F)</option>
+                <option value="O">Other (O)</option>
+            </select>
+            <select id="filter_designation" style="padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
+                <option value="">All Designations</option>
+            </select>
+            <select id="filter_experienceInYears" style="padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
+                <option value="">All Experience Levels</option>
+            </select>
+            <button type="button" class="btn primary" onclick="clearAllFilters()" style="padding: 8px 16px;">Clear Filters</button>
+        </div>
+ 
+        <table id="employeeTable">
+            <thead>
+                <tr>
+                    <th class="sortable" data-column="employeeID">ID <span class="sort-icon">⇅</span></th>
+                    <th class="sortable" data-column="fullName">Name <span class="sort-icon">⇅</span></th>
+                    <th class="sortable" data-column="email">Email <span class="sort-icon">⇅</span></th>
+                    <th class="sortable" data-column="phone">Phone <span class="sort-icon">⇅</span></th>
+                    <th class="sortable" data-column="gender">Gender <span class="sort-icon">⇅</span></th>
+                    <th class="sortable" data-column="designation">Designation <span class="sort-icon">⇅</span></th>
+                    <th class="sortable" data-column="experienceInYears">Experience <span class="sort-icon">⇅</span></th>
+                    <th class="sortable" data-column="isActive">Status <span class="sort-icon">⇅</span></th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+ 
+        <!-- Page size dropdown -->
+        <label>Page Size:</label>
+        <select id="pageSize">
+            <option value="10">10</option>
+            <option value="20">20</option>
+            <option value="50">50</option>
+            <option value="100">100</option>
+        </select>
+ 
+        <!-- Pagination -->
+        <div class="pagination" id="paginationControls"></div>
+    </section>
+ 
+    <!-- ADD EMPLOYEE SECTION -->
+    <section id="addSection" style="display:none;">
+        <h2>Add Employee</h2>
+ 
+        <form id="addEmployeeForm">
+            <div><label>Name: <input id="add_fullName" required></label></div>
+            <div><label>Email: <input id="add_email" type="email" required></label></div>
+            <div><label>Phone: <input id="add_phone"></label></div>
+ 
+            <div>
+                <label>Gender:
+                    <select id="add_gender" required>
+                        <option value="">Select Gender</option>
+                        <option value="M">Male (M)</option>
+                        <option value="F">Female (F)</option>
+                        <option value="O">Other (O)</option>
+                    </select>
+                </label>
+            </div>
+ 
+            <div><label>Designation: <input id="add_designation"></label></div>
+            <div><label>Experience: <input id="add_experience" type="number" min="0"></label></div>
+ 
+            <div>
+                <label>Skills:
+                    <button type="button" id="addSkillBtn" class="btn small" style="margin-left: 10px;">+ Add Skill</button>
+                </label>
+                <input type="hidden" id="add_skills" value="">
+                <div id="skillsList" style="margin-top: 10px; display: flex; flex-wrap: wrap; gap: 8px;"></div>
+            </div>
+ 
+            <button type="submit" class="btn primary">Add</button>
+            <button type="button" class="btn" onclick="showSection('listSection')">Back</button>
+        </form>
+    </section>
+ 
+    <!-- UPDATE EMPLOYEE SECTION -->
+    <section id="updateSection" style="display:none;">
+        <h2>Edit Employee</h2>
+ 
+        <form id="updateEmployeeForm">
+            <input type="hidden" id="upd_employeeID">
+ 
+            <div><label>Name: <input id="upd_fullName" required></label></div>
+            <div><label>Email: <input id="upd_email" type="email" required></label></div>
+            <div><label>Phone: <input id="upd_phone"></label></div>
+ 
+            <div>
+                <label>Gender:
+                    <select id="upd_gender" required>
+                        <option value="">Select Gender</option>
+                        <option value="M">Male (M)</option>
+                        <option value="F">Female (F)</option>
+                        <option value="O">Other (O)</option>
+                    </select>
+                </label>
+            </div>
+ 
+            <div><label>Designation: <input id="upd_designation"></label></div>
+            <div><label>Experience: <input id="upd_experience" type="number" min="0"></label></div>
+ 
+            <!-- New Skills Section -->
+            <button type="button" class="btn small" onclick="openUpdateSkillModal()">Edit Skills</button>
+ 
+            <input type="hidden" id="upd_skills">
+            <div id="upd_skill_display" style="margin-top: 10px;"></div>
+ 
+            <button type="submit" class="btn ok">Update</button>
+            <button type="button" class="btn" onclick="showSection('listSection')">Cancel</button>
+        </form>
+    </section>
+ 
+    <!-- Add Skill Modal -->
+    <div id="addSkillModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Add New Skill</h2>
+                <button type="button" class="modal-close" onclick="closeAddSkillModal()">&times;</button>
+            </div>
+ 
+            <div class="modal-body">
+                <form id="addSkillForm">
+                    <label>Select Skills:</label>
+                    <div id="skillCheckboxList" style="border: 1px solid #ddd; max-height: 300px; overflow-y: auto;"></div>
+                </form>
+            </div>
+ 
+            <div class="modal-footer">
+                <button type="button" class="btn primary" onclick="saveNewSkill()">Save Skill</button>
+                <button type="button" class="btn" onclick="closeAddSkillModal()">Cancel</button>
+            </div>
+        </div>
+    </div>
+ 
+    <!-- Update Skill Modal -->
+    <div id="updateSkillModal" class="modal" style="display:none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Update Employee Skills</h2>
+                <button type="button" class="modal-close" onclick="closeUpdateSkillModal()">&times;</button>
+            </div>
+ 
+            <div class="modal-body">
+                <div id="updateSkillCheckboxList"
+                    style="border:1px solid #ddd; padding:10px; max-height:300px; overflow-y:auto;">
+                </div>
+            </div>
+ 
+            <div class="modal-footer">
+                <button type="button" class="btn primary" onclick="saveUpdatedSkills()">Save Changes</button>
+                <button type="button" class="btn" onclick="closeUpdateSkillModal()">Cancel</button>
+            </div>
+        </div>
+    </div>
+ 
+    <!-- JS -->
+    <script src="/js/employees.js"></script>
+ 
+</body>
+</html>
+ 
+ 

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Employee & Project Dashboard</title>
+    <link rel="stylesheet" href="/css/count.css">
+</head>
+
+<body>
+<button onclick="window.location.href='index.html'" class="back-button">← Back to Dashboard</button>
+<h1>Employee & Project Dashboard</h1>
+
+<div class="card-container">
+    <div class="card">
+        <h2>Total Employees</h2>
+        <div id="employeeCount" class="value">0</div>
+    </div>
+
+    <div class="card">
+        <h2>Total Projects</h2>
+        <div id="projectCount" class="value">0</div>
+    </div>
+</div>
+
+<button onclick="loadDashboard()">Refresh Dashboard</button>
+
+<p id="status"></p>
+
+<script>
+    // ❗ UPDATE THESE TO MATCH YOUR BACKEND ENDPOINTS
+    const EMP_API = "https://localhost:7230/count";
+    const PROJ_API = "https://localhost:7230/count";
+
+    async function loadDashboard() {
+        const status = document.getElementById("status");
+        status.innerHTML = "<span class='loading'>Loading data...</span>";
+
+        try {
+            // Fetch employees
+            const empRes = await fetch(EMP_API);
+            if (!empRes.ok) throw new Error("Employee API error");
+            const employees = await empRes.json();
+
+            // Fetch projects
+            const projRes = await fetch(PROJ_API);
+            if (!projRes.ok) throw new Error("Project API error");
+            const projects = await projRes.json();
+
+            // Update values
+            document.getElementById("employeeCount").innerHTML = projects.activeEmployeeCount;
+            document.getElementById("projectCount").innerHTML = projects.activeProjectCount;
+
+            status.innerHTML = "✔ Dashboard updated successfully";
+
+        } catch (err) {
+            status.innerHTML = `<span class='error'>${err.message}</span>`;
+            console.error(err);
+        }
+    }
+
+    // Load automatically on first open
+    loadDashboard();
+</script>
+
+</body>
+</html>

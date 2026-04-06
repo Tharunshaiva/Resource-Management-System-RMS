@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Project Management</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/css/projects.css">
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+<body>
+ 
+<button onclick="window.location.href='index.html'" class="back-button">← Back to Dashboard</button>
+<h1>Project Management</h1>
+<nav>
+  <a onclick="showSection('listSection')">Project List</a>
+  <a onclick="showSection('addSection')">Add Project</a>
+</nav>
+ 
+<div style="display:flex; justify-content:space-between; align-items:center; max-width:1000px; margin:0 auto 10px auto;">
+  <div id="alerts"></div>
+  <div style="display:flex; gap:8px; align-items:center;">
+    <label for="statusFilter" style="font-weight:600; color:#00796b;">Status:</label>
+    <select id="statusFilter">
+      <option value="Active">Active</option>
+      <option value="Inactive">Inactive</option>
+    </select>
+  </div>
+</div>
+ 
+<!-- LIST -->
+<section id="listSection">
+  <h2>All Projects</h2>
+  <table id="projectTable">
+    <thead>
+      <tr>
+        <th>ID</th><th>Name</th><th>Client</th><th>Capacity</th>
+        <th>working days</th><th>Start</th><th>End</th><th>Status</th><th>Actions</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+  <div style="max-width:1000px; margin:12px auto 40px auto; display:flex; justify-content:center; gap:12px; align-items:center;" class="pagination-controls">
+    <button id="prevPage" class="btn" disabled>Prev</button>
+    <span id="pageInfo">Page 1</span>
+    <button id="nextPage" class="btn">Next</button>
+  </div>
+</section>
+ 
+<!-- ADD -->
+<section id="addSection">
+  <h2>Add Project</h2>
+  <form id="addProjectForm">
+    <div><label>Name: <input id="add_name" required></label></div>
+    <div><label>Client: <input id="add_client"></label></div>
+    <div><label>Capacity: <input id="add_capacity" type="number"></label></div>
+    <div><label>Start Date: <input id="add_start" type="date"></label></div>
+    <div><label>End Date: <input id="add_end" type="date"></label></div>
+    <div>
+      <label>Status:
+        <select id="add_status" required>
+          <option value="">Select Status</option>
+          <option value="Active">Active</option>
+          <option value="Inactive">Inactive</option>
+        </select>
+      </label>
+    </div>
+    <button class="btn primary" type="submit">Add</button>
+    <button class="btn" type="button" onclick="showSection('listSection')">Back</button>
+  </form>
+</section>
+ 
+<!-- UPDATE -->
+<section id="updateSection">
+  <h2>Edit Project</h2>
+  <form id="updateProjectForm">
+    <input type="hidden" id="upd_projectID">
+    <div><label>Name: <input id="upd_name" required></label></div>
+    <div><label>Client: <input id="upd_client"></label></div>
+    <div><label>Capacity: <input id="upd_capacity" type="number"></label></div>
+    <div><label>Start Date: <input id="upd_start" type="date"></label></div>
+    <div><label>End Date: <input id="upd_end" type="date"></label></div>
+    <div>
+      <label>Status:
+        <select id="upd_status" required>
+          <option value="">Select Status</option>
+          <option value="Active">Active</option>
+          <option value="Inactive">Inactive</option>
+        </select>
+      </label>
+    </div>
+    <button class="btn ok" type="submit">Update</button>
+    <button class="btn" type="button" onclick="showSection('listSection')">Cancel</button>
+  </form>
+</section>
+ 
+<script src="/js/projects.js"></script>
+</body>
+</html>
+ 
+ 

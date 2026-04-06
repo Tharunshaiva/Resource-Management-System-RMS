@@ -1,0 +1,28 @@
+# User Requested Exclusions
+/Major project Microservice/
+
+# .NET Core / Visual Studio specific ignores
+[Bb]in/
+[Oo]bj/
+.vs/
+*.user
+*.suo
+*.ide
+*.dbproj.schemaview
+*.pfx
+*.publishsettings
+
+# Application configuration (Optional: Uncomment if you want to avoid pushing local secrets)
+# appsettings.Development.json
+# appsettings.json
+
+# VS Code specific ignores
+.vscode/
+
+# Build results
+[Dd]ebug/
+[Rr]elease/
+
+# OS generated files
+.DS_Store
+Thumbs.db

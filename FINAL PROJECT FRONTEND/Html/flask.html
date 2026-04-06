@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>Employee Bench Probability</title>
+
+        <!-- Bootstrap CSS (optional but makes layout responsive / neat) -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- jQuery (required by this task) -->
+        <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+
+        <link rel="stylesheet" href="/css/flask.css">
+    </head>
+    <body>
+        <button onclick="window.location.href='index.html'" class="back-button">← Back to Dashboard</button>
+        <div class="app-card">
+            <div class="title mb-2">
+                <div class="logo">EP</div>
+                <div>
+                    
+                    <h4 class="mb-0">Employee Bench Probability</h4>
+                    <div class="instructions">Select an employee to assess their bench probability</div>
+                </div>
+            </div>
+
+            <hr />
+
+            <div class="row g-3">
+                <div class="col-12 col-md-6">
+                    <label for="employeeSearch" class="form-label">Search employees</label>
+                    <!-- Input with custom suggestions dropdown (styled) -->
+                    <div style="position:relative">
+                        <input id="employeeSearch" class="form-control" placeholder="pick from suggestions" autocomplete="off" />
+                        <div id="suggestionList" class="suggestion-list" aria-hidden="true"></div>
+                    </div>
+
+                    <div id="suggestions">Tip: Type at least 2 characters to filter names or choose from the dropdown above.</div>
+                </div>
+
+                <div class="col-12 col-md-6">
+                    <label class="form-label">Selected employee</label>
+                    <div id="selectedCard" class="p-3 border rounded-2 bg-white">
+                        <div id="selName" style="font-weight:600; font-size:1rem;">— none selected —</div>
+                        <div id="selMeta" class="text-muted" style="font-size:.9rem">Primary skill &bull; Experience</div>
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <div class="d-flex align-items-center gap-3">
+                        <button id="btnAssess" class="btn btn-primary" disabled>Assess bench probability</button>
+                        <div class="spinner-border spinner" role="status" id="mainSpinner"></div>
+                        <div id="message" class="ms-2 text-error d-none"></div>
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <div class="result-box">
+                        <h5 class="mb-1">Result</h5>
+                        <!-- Show the API response here -->
+                        <div class="row align-items-center">
+                            <div class="col-9">
+                                <div id="resultOutput">No result yet</div>
+                                <div id="resultDetails"></div>
+                            </div>
+                            <div class="col-3 text-end">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main script: implement fetching, dropdown build, selection, and POST -->
+        <script src="/js/flask.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    </body>
+</html>

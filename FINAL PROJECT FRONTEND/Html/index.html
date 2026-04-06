@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Resource Management System - Dashboard</title>    
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/index.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1><i class="fas fa-users-cog"></i> Resource Management System</h1>
+            <p>Comprehensive resource tracking and utilization analytics</p>
+            <button id="chatbotToggle" class="chatbot-toggle" title="Chat with AI">
+                <i class="fas fa-robot"></i>
+            </button>
+        </div>
+        <div class="dashboard-grid">
+        <a href="Count_Management.html" class="dashboard-card primary" data-page="Count_Management">
+                <i class="fas fa-chart-bar"></i>
+                <h3>Count Management</h3>
+                <p>Utilization, bench, and Employee Count dashboards</p>
+        </a>
+            <a href="employees.html" class="dashboard-card primary" data-page="employees">
+                <i class="fas fa-user-tie"></i>
+                <h3>Employee Management</h3>
+                <p>Add, edit, and manage employee profiles & skills</p>
+            </a>
+            <a href="projects.html" class="dashboard-card primary" data-page="projects">
+                <i class="fas fa-project-diagram"></i>
+                <h3>Project Management</h3>
+                <p>Create projects and set resource capacity</p>
+            </a>
+            <a href="allocations.html" class="dashboard-card primary" data-page="allocations">
+                <i class="fas fa-handshake"></i>
+                <h3>Resource Allocation</h3>
+                <p>Assign employees to projects with validation</p>
+            </a>
+           
+            <a href="skills.html" class="dashboard-card primary" data-page="skills">
+                <i class="fas fa-cogs"></i>
+                <h3>Skill Management</h3>
+                <p>Track employee skills and competencies</p>
+            </a>
+            <a href="flask.html" class="dashboard-card primary" data-page="flask">
+            <i class="fas fa-brain"></i>
+            <h3>Bench Prediction</h3>
+            <p>AI-powered bench probability and project analytics</p>
+            </a>
+            <a href="bench.html" class="dashboard-card primary" data-page="bench">
+                <i class="fas fa-chart-bar"></i>
+                <h3>Bench and employee Management</h3>
+                <p>Utilization, bench, and Employee availability dashboards</p>
+            </a>
+            <a href="reports.html" class="dashboard-card primary" data-page="reports">
+                <i class="fas fa-chart-bar"></i>
+                <h3>Reports & Analytics</h3>
+                <p>Utilization, bench, and skill availability dashboards</p>
+            </a>
+        </div>
+    </div>
+ 
+    <!-- CHATBOT SIDE PANEL -->
+    <div id="chatPanel" class="chat-panel">
+        <div class="chat-header">
+            <h3>AI Assistant</h3>
+            <button id="chatClose" class="chat-close">&times;</button>
+        </div>
+        <div id="chatMessages" class="chat-messages"></div>
+        <form id="chatForm" class="chat-form">
+            <input type="text" id="chatInput" placeholder="Ask me anything..." required>
+            <button type="submit" id="chatSend">
+                <i class="fas fa-paper-plane"></i>
+            </button>
+        </form>
+    </div>
+ 
+    <script>
+        const CHATBOT_API = "http://127.0.0.1:5001/chatbot";
+        const chatPanel = document.getElementById("chatPanel");
+        const chatToggle = document.getElementById("chatbotToggle");
+        const chatClose = document.getElementById("chatClose");
+        const chatForm = document.getElementById("chatForm");
+        const chatInput = document.getElementById("chatInput");
+        const chatMessages = document.getElementById("chatMessages");
+ 
+        // Toggle chat panel
+        chatToggle.addEventListener("click", () => {
+            chatPanel.classList.toggle("active");
+            if (chatPanel.classList.contains("active")) {
+                chatInput.focus();
+            }
+        });
+ 
+        // Close chat panel
+        chatClose.addEventListener("click", () => {
+            chatPanel.classList.remove("active");
+        });
+ 
+        // Handle form submission
+        chatForm.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const message = chatInput.value.trim();
+           
+            if (!message) return;
+ 
+            // Add user message to chat
+            addMessage(message, "user");
+            chatInput.value = "";
+ 
+            try {
+                // Send message to API
+                const response = await fetch(CHATBOT_API, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ message: message })
+                });
+ 
+                if (!response.ok) {
+                    throw new Error(`API error: ${response.status}`);
+                }
+ 
+                const data = await response.json();
+                const aiResponse = data.response || "No response received";
+               
+                // Add AI response to chat
+                addMessage(aiResponse, "ai");
+            } catch (error) {
+                console.error("Chatbot error:", error);
+                addMessage("Sorry, I encountered an error. Please try again.", "ai");
+            }
+        });
+ 
+        // Add message to chat display
+        function addMessage(text, sender) {
+            const messageDiv = document.createElement("div");
+            messageDiv.className = `chat-message ${sender}`;
+           
+            const bubble = document.createElement("div");
+            bubble.className = "message-bubble";
+           
+            // Handle newlines in response
+            bubble.innerHTML = text.replace(/\n/g, "<br>");
+           
+            messageDiv.appendChild(bubble);
+            chatMessages.appendChild(messageDiv);
+           
+            // Auto-scroll to bottom
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+    </script>
+</body>
+</html>
+ 

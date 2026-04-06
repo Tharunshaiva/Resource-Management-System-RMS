@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Bench Management Dashboard</title>
+<link rel="stylesheet" href="/css/bench.css">
+</head>
+
+<body>
+    
+
+<h1>Bench Management Dashboard</h1>
+
+<!-- SECTION 1 -->
+<div class="section">
+    <h2>1. Bench Employees</h2>
+    <button onclick="loadBenchEmployees()">Load Employees</button>
+    <div id="benchEmployees"></div>
+</div>
+
+<!-- SECTION 2 -->
+<div class="section">
+    <h2>2. Bench Percentage</h2>
+    <button onclick="loadBenchPercentage()">Load Percentage</button>
+    <div id="benchPercentage"></div>
+</div>
+
+<!-- SECTION 3 -->
+<div class="section">
+    <h2>3. Bench by Skill</h2>
+    <button onclick="loadBenchBySkill()">Load Skill Data</button>
+    <div id="benchSkill"></div>
+</div>
+
+<!-- SECTION 4 -->
+<div class="section">
+    <h2>4. Bench & Project Count</h2>
+    <button onclick="loadBenchProjectCounts()">Load Counts</button>
+    <div id="benchProjectCounts"></div>
+</div>
+
+<!-- SECTION 5 -->
+<div class="section">
+    <h2>5. Project Capacity Summary</h2>
+    <button onclick="loadCapacitySummary()">Load Summary</button>
+    <div id="capacitySummary"></div>
+</div>
+
+<!-- SECTION 6 -->
+<div class="section">
+    <h2>6. Active Project Dates</h2>
+    <button onclick="loadActiveProjectDates()">Load Dates</button>
+    <div id="projectDates"></div>
+</div>
+
+<script>
+const API_BASE = "https://localhost:7230/api/BenchManagement";
+
+async function fetchData(endpoint) {
+    try {
+        const res = await fetch(`${API_BASE}/${endpoint}`);
+
+        if (!res.ok) {
+            throw new Error("HTTP Error: " + res.status);
+        }
+
+        const data = await res.json();
+        return data;
+
+    } catch (err) {
+        console.error(err);
+        return { error: err.message };
+    }
+}
+
+///////////////////////////////////////////
+// 1. Bench Employees
+///////////////////////////////////////////
+
+async function loadBenchEmployees() {
+    const div = document.getElementById("benchEmployees");
+    div.innerHTML = "<p class='loading'>Loading employees...</p>";
+
+    try {
+        const res = await fetch(`https://localhost:7230/api/BenchManagement/bench-employees`);
+        if (!res.ok) throw new Error("Error: " + res.status);
+
+        const raw = await res.json();
+        if (!Array.isArray(raw)) {
+            div.innerHTML = "<p class='error'>Unexpected API response</p>";
+            console.log("API returned:", raw);
+            return;
+        }
+
+        // Group by employeeID and aggregate skills
+        const grouped = Array.from(
+            raw.reduce((map, row) => {
+                const id = row.employeeID;
+
+                if (!map.has(id)) {
+                    map.set(id, {
+                        employeeID: id,
+                        employeeName: row.employeeName,
+                        experience: row.experience,
+                        skills: new Set()
+                    });
+                }
+                // Add skill to the set (dedupe safely)
+                if (row.skill) {
+                    map.get(id).skills.add(row.skill);
+                }
+                return map;
+            }, new Map())
+            .values()
+        ).map(emp => ({
+            ...emp,
+            skills: Array.from(emp.skills) // convert Set -> Array for rendering
+        }));
+
+        // Build HTML
+        let html = `
+            <table>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Experience (Years)</th>
+                    <th>Skills</th>
+                </tr>
+        `;
+
+        grouped.forEach(emp => {
+            html += `
+                <tr>
+                    <td>${emp.employeeID}</td>
+                    <td>${emp.employeeName}</td>
+                    <td>${emp.experience}</td>
+                    <td>${emp.skills.join(", ")}</td>
+                </tr>
+            `;
+        });
+
+        html += "</table>";
+        div.innerHTML = html;
+
+    } catch (err) {
+        div.innerHTML = `<p class="error">Failed to load data: ${err.message}</p>`;
+    }
+}
+
+
+///////////////////////////////////////////
+// 2. Bench Percentage
+///////////////////////////////////////////
+async function loadBenchPercentage() {
+    const div = document.getElementById("benchPercentage");
+    div.innerHTML = "<p class='loading'>Loading...</p>";
+
+    const data = await fetchData("bench-percentage");
+
+    if (data.error) {
+        div.innerHTML = `<p class='error'>${data.error}</p>`;
+        return;
+    }
+
+    div.innerHTML = `<h3>${data.benchPercentage}% employees are on bench</h3>`;
+}
+
+///////////////////////////////////////////
+// 3. Bench by Skill
+///////////////////////////////////////////
+async function loadBenchBySkill() {
+    const div = document.getElementById("benchSkill");
+    div.innerHTML = "<p class='loading'>Loading...</p>";
+
+    const data = await fetchData("bench-by-skill");
+
+    if (data.error) {
+        div.innerHTML = `<p class='error'>${data.error}</p>`;
+        return;
+    }
+
+    let html = "<table><tr><th>Skill</th><th>Bench Count</th></tr>";
+
+    data.forEach(s => {
+        html += `<tr>
+                    <td>${s.skillName}</td>
+                    <td>${s.benchCount}</td>
+                 </tr>`;
+    });
+
+    html += "</table>";
+    div.innerHTML = html;
+}
+
+///////////////////////////////////////////
+// 4. Bench & Project Count
+///////////////////////////////////////////
+async function loadBenchProjectCounts() {
+    const div = document.getElementById("benchProjectCounts");
+    div.innerHTML = "<p class='loading'>Loading...</p>";
+
+    const data = await fetchData("bench-project-total");
+
+    if (data.error) {
+        div.innerHTML = `<p class='error'>${data.error}</p>`;
+        return;
+    }
+
+    div.innerHTML = `
+        <h3>Bench Count: ${data.benchCount}</h3>
+        <h3>Project Count: ${data.projectCount}</h3>
+    `;
+}
+
+///////////////////////////////////////////
+// 5. Project Capacity Summary
+///////////////////////////////////////////
+async function loadCapacitySummary() {
+    const div = document.getElementById("capacitySummary");
+    div.innerHTML = "<p class='loading'>Loading...</p>";
+
+    const data = await fetchData("capacity-summary");
+
+    if (data.error) {
+        div.innerHTML = `<p class='error'>${data.error}</p>`;
+        return;
+    }
+
+    let html = `
+        <h3>Total Assigned: ${data.totalAssigned}</h3>
+        <h3>Total Capacity: ${data.totalCapacity}</h3>
+    `;
+    html += "<table><tr><th>Project</th><th>Assigned</th><th>Capacity</th></tr>";
+
+    data.projects.forEach(p => {
+        html += `<tr>
+                    <td>${p.projectName}</td>
+                    <td>${p.assigned}</td>
+                    <td>${p.capacity}</td>
+                 </tr>`;
+    });
+
+    html += "</table>";
+    div.innerHTML = html;
+}
+
+///////////////////////////////////////////
+// 6. Active Project Dates
+///////////////////////////////////////////
+async function loadActiveProjectDates() {
+    const div = document.getElementById("projectDates");
+    div.innerHTML = "<p class='loading'>Loading...</p>";
+
+    const data = await fetchData("active-project-dates");
+
+    if (data.error) {
+        div.innerHTML = `<p class='error'>${data.error}</p>`;
+        return;
+    }
+
+    let html = "<table><tr><th>Project</th><th>Start Date</th><th>End Date</th></tr>";
+
+    data.projects.forEach(p => {
+        html += `<tr>
+                    <td>${p.projectName}</td>
+                    <td>${new Date(p.startDate).toLocaleDateString()}</td>
+                    <td>${new Date(p.endDate).toLocaleDateString()}</td>
+                </tr>`;
+    });
+
+    html += "</table>";
+    div.innerHTML = html;
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skill Management</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <link rel="stylesheet" href="/css/skills.css">
+</head>
+<body>
+    <button onclick="window.location.href='index.html'" class="back-button">← Back to Dashboard</button>
+    <h1>Skill Management</h1>
+   
+    <nav>
+        <a onclick="showSection('listSection')">Skill List</a>
+        <a onclick="showSection('createSection')">Create Skill</a>
+        <a onclick="showSection('employeeSkillsSection')">Employee Skills</a>
+    </nav>
+ 
+    <div id="alerts"></div>
+ 
+    <!-- LIST SKILLS SECTION -->
+    <section id="listSection">
+        <h2>All Skills</h2>
+        <button class="btn primary" onclick="loadSkills()">Load Skills</button>
+        <table id="skillsTable">
+            <thead>
+                <tr>
+                    <th>Skill ID</th>
+                    <th>Skill Name</th>
+                    <th>Description</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </section>
+ 
+    <!-- CREATE SKILL SECTION -->
+    <section id="createSection">
+        <h2>Create Skill</h2>
+        <form id="createSkillForm">
+            <div><label>Skill Name: <input id="createSkillName" required></label></div>
+            <div><label>Description: <input id="createSkillDesc"></label></div>
+            <button class="btn primary" type="submit">Create</button>
+            <button class="btn" type="button" onclick="showSection('listSection')">Back</button>
+        </form>
+    </section>
+ 
+    <!-- UPDATE SKILL SECTION -->
+    <section id="updateSection">
+        <h2>Update Skill</h2>
+        <form id="updateSkillForm">
+ 
+            <div><label>Current Skill Name: <input id="updateCurrentSkillName" readonly></label></div>
+            <div><label>New Skill Name: <input id="updateSkillName" required></label></div>
+            <div><label>New Description: <input id="updateSkillDesc"></label></div>
+            <button class="btn ok" type="submit">Update</button>
+            <button class="btn" type="button" onclick="showSection('listSection')">Cancel</button>
+        </form>
+    </section>
+ 
+   
+    <!-- EMPLOYEE SKILLS SECTION -->
+    <section id="employeeSkillsSection">
+        <h2>Get Skills by Employee</h2>
+        <form id="employeeSkillsForm">
+ 
+            <!-- CHANGED: input → dropdown -->
+            <div>
+                <label>Employee Name:
+                    <select id="employeeSkillsDropdown" required></select>
+                </label>
+            </div>
+ 
+            <button class="btn primary" type="submit">Get Skills</button>
+            <button class="btn" type="button" onclick="showSection('listSection')">Cancel</button>
+        </form>
+ 
+        <div id="employeeSkillsList"></div>
+    </section>
+ 
+    <script src="/js/skills.js"></script>
+</body>
+</html>
